@@ -1,0 +1,17 @@
+<main>
+    <h1>I hope I am able to at least get half way on this project let alone finish it</h1>
+    <p>List of users....</p>
+    {{#if data }}
+    <div>
+        {{#each data }}
+        <ul>
+            <li>
+                {{ this.userName }}
+            </li>
+        </ul>
+        {{/each}}
+    </div>
+    {{ else }}
+    <h1>No Users wish to Praise the Lord</h1>
+    {{/if}}
+</main>
