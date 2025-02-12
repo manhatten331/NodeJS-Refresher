@@ -1,0 +1,30 @@
+<main>
+    {{#if editing}}
+    <form class="product-form" action="/admin/edit-product" method="POST">
+    {{ else }}
+    <form class="product-form" action="/admin/add-product" method="POST">
+    {{/if}}
+        <div class="form-control">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" value="{{product.title}}">
+        </div>
+        <div class="form-control">
+            <label for="imageURL">Image URL</label>
+            <input type="text" name="imageURL" id="imageURL" value="{{product.imageURL}}">
+        </div>
+        <div class="form-control">
+            <label for="price">Price</label>
+            <input type="number" name="price" id="price" step="0.01" value="{{product.price}}">
+        </div>
+        <div class="form-control">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="5" >{{product.description}}</textarea>
+        </div>
+        {{#if editing}}
+        <button type="submit">Update Product</button>
+        <input type="hidden" value={{product.id}} name="productId">
+        {{ else }}
+        <button type="submit">Add Product</button>
+        {{/if}}
+    </form>
+</main>
