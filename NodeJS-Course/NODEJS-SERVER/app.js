@@ -10,7 +10,7 @@ const expressHbs = require('express-handlebars');
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 const errorController = require('./controllers/error')
-const db = require('./util/database')
+const sequelize = require('./util/database')
 
 // db.execute('SELECT * FROM PRODUCTS')
 // .then( result => {
@@ -41,5 +41,15 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 app.use(errorController.get404Page)
+
+sequelize
+    .sync()
+    .then(result => {
+        // console.log(result);
+        app.listen
+    })
+    .catch(err => {
+        console.log(err);
+    })
 
 app.listen(3000);

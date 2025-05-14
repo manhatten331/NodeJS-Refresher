@@ -2,18 +2,35 @@ const Product = require('../models/product')
 const Cart = require('../models/cart')
 
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll()
-        .then(([rows]) => {
-            res.render('shop/product-list', {
-                prods: rows,
-                path: '/products',
-                pageTitle: 'Shop',
-                activePage: req.path,
-                productCSS: true,
-                mainCSS: true
-            });
-        })
-        .catch(err => console.log(err));
+    Product.findAll()
+    .then(products => {
+        console.log("Fetching All Products...")
+        res.render('shop/product-list', {
+            prods: products,
+            path: '/products',
+            pageTitle: 'Shop',
+            activePage: req.path,
+            productCSS: true,
+            mainCSS: true
+        });
+    })
+    .catch(err => {
+        console.log(err)
+    })
+    
+    
+    // Product.fetchAll()
+    //     .then(([rows]) => {
+    //         res.render('shop/product-list', {
+    //             prods: rows,
+    //             path: '/products',
+    //             pageTitle: 'Shop',
+    //             activePage: req.path,
+    //             productCSS: true,
+    //             mainCSS: true
+    //         });
+    //     })
+    //     .catch(err => console.log(err));
 };
 
 exports.getProduct = (req, res, next) => {
@@ -28,18 +45,34 @@ exports.getProduct = (req, res, next) => {
 }
 
 exports.getIndex = (req, res, next) => {
-    Product.fetchAll()
-        .then(([rows]) => {
-            res.render('shop/index', {
-                prods: rows,
-                path: '/',
-                pageTitle: 'Shop',
-                activePage: req.path,
-                productCSS: true,
-                mainCSS: true
-            });
-        })
-        .catch(err => console.log(err));
+    Product.findAll()
+    .then(products => {
+        console.log("Fetching All Products...")
+        res.render('shop/index', {
+            prods: products,
+            path: '/',
+            pageTitle: 'Shop',
+            activePage: req.path,
+            productCSS: true,
+            mainCSS: true
+        });
+    })
+    .catch(err => {
+        console.log(err)
+    })
+    
+    // Product.fetchAll()
+    //     .then(([rows]) => {
+    //         res.render('shop/index', {
+    //             prods: rows,
+    //             path: '/',
+    //             pageTitle: 'Shop',
+    //             activePage: req.path,
+    //             productCSS: true,
+    //             mainCSS: true
+    //         });
+    //     })
+    //     .catch(err => console.log(err));
 };
 
 exports.getCart = (req, res, next) => {
