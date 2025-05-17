@@ -12,24 +12,39 @@ exports.getAddProductPage = (req, res, next) => {
 };
 
 
-exports.postAddProduct = (req, res, next) => {
+exports.postAddProduct = async (req, res, next) => {
     const title = req.body.title;
     const imageURL = req.body.imageURL;
     const description = req.body.description;
     const price = req.body.price;
 
-    Product.create({
-        title: title,
-        price: price,
-        imageURL: imageURL,
-        description: description
-    })
-        .then(result => {
-            console.log("Created Product")
+    try {
+        const product = await Product.create({
+            title: title,
+            price: price,
+            imageURL: imageURL,
+            description: description
         })
-        .catch(err => {
-            console.log(err)
-        })
+
+        console.log("Created Product")
+        res.redirect('/admin/products')
+
+    } catch (e) {
+        console.log(e)
+    }
+
+    // Product.create({
+    //     title: title,
+    //     price: price,
+    //     imageURL: imageURL,
+    //     description: description
+    // })
+    //     .then(result => {
+    //         console.log("Created Product")
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
 
     // const product = new Product(null, title, imageURL, description, price);
     // product.save()
@@ -181,10 +196,25 @@ exports.postEditProduct = async (req, res, next) => {
     // updatedProduct.save()
 }
 
-exports.postDeleteProduct = (req, res, next) => {
+exports.postDeleteProduct = async (req, res, next) => {
     const prodId = req.body.productId;
-    Product.deletebyId(prodId)
-    res.redirect('/admin/products')
+
+    try {
+        const product = await Product.findByPk(prodId)
+
+        if (!product) {
+            return res.redirect('/')
+        }
+
+        await product.destroy()
+        res.redirect('/admin/products')
+
+    } catch (e) {
+        console.log(e)
+    }
+
+    // Product.deletebyId(prodId)
+    // res.redirect('/admin/products')
 };
 
 exports.getProducts = (req, res, next) => {
